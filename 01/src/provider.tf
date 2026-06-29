@@ -25,7 +25,7 @@ provider "yandex" {
 }
 
 provider "docker" {
-  host     = "ssh://user@remote-host:22"
+  host     = "ssh://${var.user}@${yandex_compute_instance.vm.network_interface.0.nat_ip_address}:22"
   ssh_opts = ["-o", "StrictHostKeyChecking=no", "-i", "~/.ssh/ubuntu-home.pub"]
 }
 
