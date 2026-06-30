@@ -1,4 +1,3 @@
-# vm
 resource "yandex_compute_instance" "vm" {
   boot_disk {
     initialize_params {
@@ -13,7 +12,6 @@ resource "yandex_compute_instance" "vm" {
   description        = "vm"
   folder_id          = var.FOLDER_ID
   hostname           = "vm"
-  maintenance_policy = "MAINTENANCE_POLICY_UNSPECIFIED"
   metadata = {
     user-data = "#cloud-config\ndatasource:\n Ec2:\n  strict_id: false\nssh_pwauth: no\nusers:\n- name: fox\n  sudo: ALL=(ALL) NOPASSWD:ALL\n  shell: /bin/bash\n  ssh_authorized_keys:\n  - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC+LINF5+lUAJf+X7ZAvaA05GqycrX2mbYB+W0g/QdKS yuri@yuri-VMware-Virtual-Platform"
     ssh-keys  = "${var.user}:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC+LINF5+lUAJf+X7ZAvaA05GqycrX2mbYB+W0g/QdKS yuri@yuri-VMware-Virtual-Platform"
@@ -41,10 +39,11 @@ resource "docker_image" "db" {
 }
 
 resource "docker_container" "db" {
-  name    = "db_mysql"
-  image   = docker_image.db.image_id
+  name  = "db_mysql"
+  image = docker_image.db.image_id
   ports {
     internal = 3306
+    ip = "127.0.0.1"
   }
   env = [
     "MYSQL_ROOT_PASSWORD=${random_password.root_password.result}",
