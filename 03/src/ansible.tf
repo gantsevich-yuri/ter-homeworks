@@ -5,6 +5,7 @@ locals {
       name              = vm.name
       hostname          = vm.hostname
       network_interface = vm.network_interface
+      fqdn              = vm.fqdn
     }
   ]
 
@@ -14,6 +15,7 @@ locals {
       name              = vm.name
       hostname          = vm.hostname
       network_interface = vm.network_interface
+      fqdn              = vm.fqdn
     }
   ]
 
@@ -23,6 +25,7 @@ locals {
       name              = vm.name
       hostname          = vm.hostname
       network_interface = vm.network_interface
+      fqdn              = vm.fqdn
     }
   ])
 }
